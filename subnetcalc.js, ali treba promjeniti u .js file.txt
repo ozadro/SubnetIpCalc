@@ -1,0 +1,166 @@
+
+//vraća true ako je true, inace vraca false
+if(typeof Number.isInteger === "undefined") Number.prototype.isInteger = function(x) { return x % 1 === 0;};
+//Inserta string u drugi string kod specificiranog indexa
+String.prototype.insert = function(index, string) {
+  if(index > 0)
+    return this.toString().substring(0, index) + string + this.toString().substring(index, this.toString().length);
+  else
+    return string + this.toString();
+};
+//ponavlja string n-broj puta
+if(typeof String.repeat === "undefined") {
+	String.prototype.repeat = function(x) {
+		var temp = "";
+		for(var i=0;i<x;i++) temp += this.toString();
+		return temp;
+	};
+}
+//Vraća true ako string započinje sa navedenim stringom, inače false
+if(typeof String.startsWith === "undefined") {
+	String.prototype.startsWith = function(str) {
+		if(this.toString().substring(0,str.length) === str) return true;
+		else return false;
+	};
+}
+//Vraća true ako string završava sa navedenim stringom, inače false
+if(typeof String.endsWith === "undefined") {
+	String.prototype.endsWith = function(str) {
+		if(this.toString().substring(this.toString().length - str.length, this.toString().length) === str) return true;
+		else return false;
+	};
+}
+//Vraća true ako string sadrži navedeni string, inače false
+if(typeof String.includes === "undefined") {
+	String.prototype.includes = function(str) {
+		if(this.toString().indexOf(str) >= 0) return true;
+		else return false;
+	};
+}
+Number.prototype.intToBinary = function() {
+	var binary = parseInt(this, 10).toString(2);
+	return "0".repeat(8 - binary.length) + binary;
+};
+String.prototype.binaryToInt = function() {
+	return parseInt(this.toString(), 2);
+};
+function intToBinary(int){
+    var binStr = parseInt(int, 10).toString(2);
+	binStr = "0".repeat(8 - binStr.length) + binStr;
+	return binStr;
+}
+function binaryToInt(bin) {
+	return parseInt(bin, 2);
+}
+
+var app = angular.module("myApp", []);
+app.controller("myCtrl", function($scope){
+	$scope.oct0 = 0;
+	$scope.oct1 = 0;
+	$scope.oct2 = 0;
+	$scope.oct3 = 0;
+	$scope.prefix = 24;
+
+	$scope.class = function() {
+		if($scope.oct0 >= 0 && $scope.oct0<= 127) return "A";
+		else if($scope.oct0 >= 128 && $scope.oct0 <= 191) return "B";
+		else if($scope.oct0 >= 192 && $scope.oct0 <= 223) return "C";
+    else if($scope.oct0 >= 224 && $scope.oct0 <= 239) return "D";
+    else if($scope.oct0 >= 240 && $scope.oct0 <= 255) return "E";
+    else return "";
+	};
+
+
+
+	$scope.IPBinary = function() {
+		var ipBin = [
+			intToBinary($scope.oct0 ? $scope.oct0 : 0),
+			intToBinary($scope.oct1 ? $scope.oct1 : 0),
+			intToBinary($scope.oct2 ? $scope.oct2 : 0),
+			intToBinary($scope.oct3 ? $scope.oct3 : 0)
+		];
+		return ipBin.join(".");
+	};
+
+	$scope.subnetBinary = function() {
+		var subnetBin = "1".repeat($scope.prefix);
+		subnetBin += "0".repeat(32 - subnetBin.length);
+		subnetBin = subnetBin.insert(8, ".").insert(17, ".").insert(26, ".");
+		return subnetBin;
+	};
+	$scope.networkAddress = function() {
+		var netBin = "";
+		for(var i=0;i<35;i++){
+			if($scope.IPBinary()[i] == $scope.subnetBinary()[i]){
+				netBin += $scope.IPBinary()[i];
+			} else {
+				netBin += "0";
+			}
+		}
+		$scope.networkBinary = netBin;
+		var net = netBin.split(".");
+		net[0] = binaryToInt(net[0]);
+		net[1] = binaryToInt(net[1]);
+		net[2] = binaryToInt(net[2]);
+		net[3] = binaryToInt(net[3]);
+		return net.join(".");
+	};
+  $scope.prjv = function(){
+    if($scope.oct0 == 10) return "Privatna adresa";
+    else if ($scope.oct0 == 172 && $scope.oct1 >=16 && $scope.oct1 <= 31) return "Privatna adresa";
+    else if ($scope.oct0 == 192 && $scope.oct1 == 168) return "Privatna adresa";
+
+    else return "Javna adresa";
+  };
+  $scope.wildcard = function() {
+    if($scope.prefix == 1) return "127.255.255.255";
+    else if ($scope.prefix == 2) return "63.255.255.255";
+    else if ($scope.prefix == 3) return "31.255.255.255";
+    else if ($scope.prefix == 4) return "15.255.255.255";
+    else if ($scope.prefix == 5) return "7.255.255.255";
+    else if ($scope.prefix == 6) return "3.255.255.255";
+    else if ($scope.prefix == 7) return "1.255.255.255";
+    else if ($scope.prefix == 8) return "0.255.255.255";
+    else if ($scope.prefix == 9) return "0.127.255.255";
+    else if ($scope.prefix == 10) return "0.63.255.255";
+    else if ($scope.prefix == 11) return "0.31.255.255";
+    else if ($scope.prefix == 12) return "0.15.255.255";
+    else if ($scope.prefix == 13) return "0.7.255.255";
+    else if ($scope.prefix == 14) return "0.3.255.255";
+    else if ($scope.prefix == 15) return "0.1.255.255";
+    else if ($scope.prefix == 16) return "0.0.255.255";
+    else if ($scope.prefix == 17) return "0.0.127.255";
+    else if ($scope.prefix == 18) return "0.0.63.255";
+    else if ($scope.prefix == 19) return "0.0.31.255";
+    else if ($scope.prefix == 20) return "0.0.15.255";
+    else if ($scope.prefix == 21) return "0.0.7.255";
+    else if ($scope.prefix == 22) return "0.0.3.255";
+    else if ($scope.prefix == 23) return "0.0.1.255";
+    else if ($scope.prefix == 24) return "0.0.0.255";
+    else if ($scope.prefix == 25) return "0.0.0.127";
+    else if ($scope.prefix == 26) return "0.0.0.63";
+    else if ($scope.prefix == 27) return "0.0.0.31";
+    else if ($scope.prefix == 28) return "0.0.0.15";
+    else if ($scope.prefix == 29) return "0.0.0.7";
+    else if ($scope.prefix == 30) return "0.0.0.3";
+    else if ($scope.prefix== 31) return "0.0.0.1";
+    else if ($scope.prefix == 32) return "0.0.0.0";
+    else return "";
+
+  };
+  $scope.disabled = function () {
+    if($scope.oct0 >= 224 && $scope.oct0 <= 239)
+    {
+      return "Disabled";
+    }
+    else {
+      var mask = "1".repeat($scope.prefix);
+      mask += "0".repeat(32-mask.length);
+      mask = mask.replace(/\s*[01]{8}\s*/g, function(mask) {return parseInt(mask, 2).toString() + ".";});
+      return mask.substring(0, mask.length-1)
+    }
+
+  }
+
+
+});

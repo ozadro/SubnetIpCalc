@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SubnetIPCalculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="css/materialize.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+    <div ng-app='myApp' ng-controller='myCtrl' class="first">
+    	<div class="row">
+
+        <div class="input-field col s12 l12">
+
+          <span class="card-title">IP Subnet Calculator</span>
+        </div>
+        <div class="input-field col s12 l2">
+         <input style="color:white;" ng-model="oct0" id="octet1" type="number" min="0" max="255"/>
+         <label for="octet1" style="color:white;">1.oktet</label>
+        </div>
+        <div class="input-field col s12 l2">
+          <input style="color:white;" ng-model="oct1" id="octet2" type="number" min="0" max="255"/>
+          <label for="octet2" style="color:white;">2.oktet</label>
+        </div>
+        <div class="input-field col s12 l2">
+          <input style="color:white;" ng-model="oct2" id="octet3" type="number" min="0" max="255"/>
+          <label for="octet3" style="color:white;">3.oktet</label>
+        </div>
+        <div class="input-field col s12 l2">
+          <input style="color:white;" ng-model="oct3" id="octet4" type="number" min="0" max="255"/>
+          <label for="octet4" style="color:white;">4.oktet</label>
+        </div>
+        <div class="input-field col s12 l2">
+          <input style="color:white;" ng-model="prefix" id="submask" type="number" min="0" max="32"/>
+          <label for="submask" style="color:white;">subnet maska</label>
+        </div>
+        <div class="input-field col s12 l2">
+          <input style="color:white;" ng-model="brU" id="host" type="number" min = "0" max="{{max()}}"/>
+          <label for="host" style="color:white;">Broj uređaja</label>
+        </div>
+      </div>
+
+    	<div class="row">
+      </div>
+
+
+
+
+						<div class="album py-4">Class: {{class()}}</label></div>
+     					<div class="album py-4">Network Address:<br>{{networkAddress()}}</div>
+              	<div class="album py-4">Broadcast Address:<br>{{BroadcastAddress()}}</div>
+              <div class="album py-4">First host:<br>{{firsthost()}}</div>
+                  <div class="album py-4">Last host:<br>{{lasthost()}}</div>
+     				    <div class="album py-4">Subnet Mask:<br>{{disabled()}}</div>
+                  <div class="album py-4">{{brojuredaja()}}</div>
+     					<div class="album py-4">IP Binary:<br>{{IPBinary()}}</div>
+     					<div class="album py-4">Network Binary:<br>{{networkBinary}}</div>
+              <div class="album py-4">Broadcast Binary:<br>{{Broadcastbinary()}}</div>
+              	<div class="album py-4">First host Binary:<br>{{fhbinary()}}</div>
+                <div class="album py-4">Last host Binary:<br>{{lasthostbinary()}}</div>
+    					<div class="album py-4">Subnet Binary:<br>{{subnetBinary()}}</div>
+              <div class="album py-4">Wildcard:<br> {{wildcard()}}</div>
+              <div class="album py-4">{{prjv()}}</div>
+
+
+
+
+
+
+     		</div>
+    	</div>
+    </div>
+  </div>
+</div>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+        $('select').formSelect();
+        $('.materialboxed').materialbox();
+        M.updateTextFields();
+        });
+    </script>
+  </body>
+</html>
+<script src="subnetcalc.js"></script>

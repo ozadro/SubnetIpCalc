@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SubnetIPCalculator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+  </head>
+<style>
+
+body{
+  text-align: center;
+  background-color: azure;
+
+}
+
+.card{
+  border:2px skyblue solid;
+  width: 25%;
+  margin: auto;
+  border-radius: 5px;
+
+}
+input[type=number]{
+   border: 2px solid skyblue;
+   border-radius: 5px;
+   width:45px;
+
+
+
+}
+label{
+  color: darkblue;
+}
+span{
+  color: darkblue;
+}
+
+</style>
+  <body>
+    <div ng-app='myApp' ng-controller='myCtrl' class="first">
+    	<div class="row center">
+    		<div class="col s12 m12 l12">
+    			<div class="card">
+    				<div class="card-content">
+    					<span class="card-title">IP Subnet Calculator</span>
+    					<div class="divider"></div><br/>
+    					<input ng-model="oct0" type="number"  min="0" max="255"/> .
+     					<input ng-model="oct1" type="number" min="0" max="255"/>.
+     					<input ng-model="oct2" type="number" min="0" max="255"/>.
+     					<input ng-model="oct3" type="number" min="0" max="255"/>/
+     					<input ng-model="prefix" type="number" min="0" max="32"/>
+
+    					<br/>
+						<div class="album py-4">Class: {{class()}}</label></div>
+     					<div class="album py-4">Network Address:<br>{{networkAddress()}}</div>
+     				    <div class="album py-4">Subnet Mask:<br>{{disabled()}}</div>
+     					<div class="album py-4">IP Binary:<br>{{IPBinary()}}</div>
+     					<div class="album py-4">Network Binary:<br>{{networkBinary}}</div>
+    					<div class="album py-4">Subnet Binary:<br>{{subnetBinary()}}</div>
+              <div class="album py-4">Wildcard:<br> {{wildcard()}}</div>
+              <div class="album py-4">{{prjv()}}</div>
+     				</div>
+     			</div>
+     		</div>
+    	</div>
+    </div>
+  </body>
+</html>
+<script src="subnetcalc.js"></script>
